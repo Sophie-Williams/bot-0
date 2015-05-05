@@ -8,8 +8,6 @@
 #include <iostream>
 
 #include "bot-0.hpp"
-#include <windows.h>
-#include <Winuser.h>
 
 void sendKeyStroke(unsigned int keycode, HWND handle)
 {

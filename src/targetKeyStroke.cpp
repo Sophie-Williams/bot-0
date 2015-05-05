@@ -8,10 +8,8 @@
 #include <iostream>
 
 #include "bot-0.hpp"
-#include <windows.h>
-#include <Winuser.h>
 
-void targetKeyStroke(void)
+void targetKeyStroke(unsigned int keycode)
 {
 	HWND handle;
 
@@ -22,9 +20,23 @@ void targetKeyStroke(void)
 
 	DWORD wid = GetWindowThreadProcessId(handle, NULL); // target process id;
 	DWORD tid =  GetCurrentProcessId(); // this process id
+
+	//HWND previous = GetForegroundWindow();
+
 	AttachThreadInput(wid, tid, TRUE);
 
-	sendKeyStroke(keycode); // Here, we send the keystroke
+	SetForegroundWindow(handle);
+	SetActiveWindow(handle);
+	SetFocus(handle);
+
+	Sleep(100); // necessary to let window time to switch
+	sendKeyStroke(keycode, handle); // Here, we send the keystroke
 
 	AttachThreadInput(wid, tid, FALSE);
+
+	/*
+	SetForegroundWindow(previous);
+	SetActiveWindow(previous);
+	SetFocus(previous);
+	*/
 }
