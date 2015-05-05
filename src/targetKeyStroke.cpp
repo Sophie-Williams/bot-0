@@ -21,8 +21,8 @@ void targetKeyStroke(unsigned int keycode)
 	DWORD wid = GetWindowThreadProcessId(handle, NULL); // target process id;
 	DWORD tid =  GetCurrentProcessId(); // this process id
 
-	//HWND previous = GetForegroundWindow();
-
+	HWND previous = GetForegroundWindow();
+	DWORD wid2 = GetWindowThreadProcessId(previous, NULL);
 	AttachThreadInput(wid, tid, TRUE);
 
 	SetForegroundWindow(handle);
@@ -34,9 +34,12 @@ void targetKeyStroke(unsigned int keycode)
 
 	AttachThreadInput(wid, tid, FALSE);
 
-	/*
+	/* Bringing back previous window*/
+
+	AttachThreadInput(wid2, tid, TRUE);
 	SetForegroundWindow(previous);
 	SetActiveWindow(previous);
 	SetFocus(previous);
-	*/
+	Sleep(100);
+	AttachThreadInput(wid2, tid, FALSE);
 }

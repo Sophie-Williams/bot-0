@@ -19,6 +19,7 @@ using namespace std;
 int main() {
 	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 
+	Sleep(5000);
 	unsigned int keycode = VK_ESCAPE;
 	cout << "Sending the key..." << endl;
 	targetKeyStroke(keycode);
